@@ -1,0 +1,101 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+        "title": "Oauth Demo",
+        "description": "Service to test your oauth capability before implementing the full service.",
+        "version": "1.0"
+    },
+    "servers": [
+        {
+            "url": "https://integration-neu-apim-dev.azure-api.net/global/IT/OAUTH-clone"
+        }
+    ],
+    "paths": {
+        "/employee": {
+            "get": {
+                "summary": "Read Employee",
+                "description": "Get a greeting, but only if you are authorized.",
+                "operationId": "oauthdemo-reademployee",
+                "responses": {
+                    "200": {
+                        "description": "Successfull authorization",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/200-OK"
+                                },
+                                "example": {
+                                    "Message": "If you can read this, you have successfully authorized."
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/401-Unauthorized"
+                                },
+                                "example": {
+                                    "statusCode": 401,
+                                    "message": "Token is invalid"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "200-OK": {
+                "type": "object",
+                "properties": {
+                    "Message": {
+                        "type": "string"
+                    }
+                },
+                "example": {
+                    "Message": "If you can read this, you have successfully authorized."
+                }
+            },
+            "401-Unauthorized": {
+                "type": "object",
+                "properties": {
+                    "statusCode": {
+                        "type": "integer"
+                    },
+                    "message": {
+                        "type": "string"
+                    }
+                },
+                "example": {
+                    "statusCode": 401,
+                    "message": "Token is invalid"
+                }
+            }
+        },
+        "securitySchemes": {
+            "apiKeyHeader": {
+                "type": "apiKey",
+                "name": "Ocp-Apim-Subscription-Key",
+                "in": "header"
+            },
+            "apiKeyQuery": {
+                "type": "apiKey",
+                "name": "subscription-key",
+                "in": "query"
+            }
+        }
+    },
+    "security": [
+        {
+            "apiKeyHeader": []
+        },
+        {
+            "apiKeyQuery": []
+        }
+    ]
+}

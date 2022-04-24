@@ -1,0 +1,99 @@
+{
+	"info": {
+		"_postman_id": "82597591-15a8-4e45-a860-41f1d27319fd",
+		"name": "Session 2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Call Echo 1 API",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{MyEcho2SubscriptionKey}}",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "https://{{YourAPImInstanceName}}.azure-api.net/echo1/request/paths/invoke",
+					"protocol": "https",
+					"host": [
+						"{{YourAPImInstanceName}}",
+						"azure-api",
+						"net"
+					],
+					"path": [
+						"echo1",
+						"request",
+						"paths",
+						"invoke"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Call Echo 2 API",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "{{MyEcho2SubscriptionKey}}",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "https://{{YourAPImInstanceName}}.azure-api.net/echo2/request/paths/invoke",
+					"protocol": "https",
+					"host": [
+						"{{YourAPImInstanceName}}",
+						"azure-api",
+						"net"
+					],
+					"path": [
+						"echo2",
+						"request",
+						"paths",
+						"invoke"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "MyEcho2SubscriptionKey",
+			"value": "SET-YOUR-VALUE",
+			"type": "string"
+		},
+		{
+			"key": "YourAPImInstanceName",
+			"value": "SET-YOUR-VALUE",
+			"type": "string"
+		}
+	]
+}

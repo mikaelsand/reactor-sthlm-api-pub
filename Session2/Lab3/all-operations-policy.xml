@@ -1,0 +1,23 @@
+<policies>
+    <inbound>
+        <base />
+        <validate-jwt header-name="Authorization" failed-validation-httpcode="401" failed-validation-error-message="Token is invalid" require-expiration-time="true" require-scheme="Bearer" require-signed-tokens="true" clock-skew="60">
+            <openid-config url="https://login.microsoftonline.com/26ef3687-262a-44fa-95f4-208111b732e9/v2.0/.well-known/openid-configuration" />
+            <audiences>
+                <audience>cc565aa4-a1e5-4c05-b1cf-df19ca4c95be</audience>
+            </audiences>
+            <issuers>
+                <issuer>https://login.microsoftonline.com/26ef3687-262a-44fa-95f4-208111b732e9/v2.0</issuer>
+            </issuers>
+        </validate-jwt>
+    </inbound>
+    <backend>
+        <base />
+    </backend>
+    <outbound>
+        <base />
+    </outbound>
+    <on-error>
+        <base />
+    </on-error>
+</policies>

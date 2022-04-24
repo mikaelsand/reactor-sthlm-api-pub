@@ -1,0 +1,160 @@
+{
+	"info": {
+		"name": "APIm OAuth Demo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "OAUTH",
+			"item": [
+				{
+					"name": "Get Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Authorized\", function() {\r",
+									"    pm.response.to.have.status(200)\r",
+									"});\r",
+									"\r",
+									"if (pm.response.code == 200) {\r",
+									"    pm.collectionVariables.set('c_bearertoken', pm.response.json().access_token)\r",
+									"}\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "Client_Id",
+									"value": "{{Client_Id}}",
+									"type": "text"
+								},
+								{
+									"key": "Client_Secret",
+									"value": "{{Client_Secret}}",
+									"type": "text"
+								},
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "text"
+								},
+								{
+									"key": "scope",
+									"value": "http://reactor-sthlm-api/.default",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://login.microsoftonline.com/26ef3687-262a-44fa-95f4-208111b732e9/oauth2/v2.0/token",
+							"protocol": "https",
+							"host": [
+								"login",
+								"microsoftonline",
+								"com"
+							],
+							"path": [
+								"26ef3687-262a-44fa-95f4-208111b732e9",
+								"oauth2",
+								"v2.0",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Employee",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{c_bearertoken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Ocp-Apim-Subscription-Key",
+								"value": "d56f142e599b4cda8478d61256f383fa",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://{{YourAPImInstanceName}}.azure-api.net/global/IT/OAUTH-clone/employee",
+							"protocol": "https",
+							"host": [
+								"{{YourAPImInstanceName}}",
+								"azure-api",
+								"net"
+							],
+							"path": [
+								"global",
+								"IT",
+								"OAUTH-clone",
+								"employee"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "YourAPImInstanceName",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "Client_Id",
+			"value": "a7364de7-ac75-4be9-93b3-895053c0a9e5",
+			"type": "string"
+		},
+		{
+			"key": "Client_Secret",
+			"value": "ArC8Q~eSZptazBAyjXSik9Ui2L~QLwGus4FX6dzX",
+			"type": "string"
+		},
+		{
+			"key": "c_bearertoken",
+			"value": ""
+		}
+	]
+}
