@@ -25,7 +25,7 @@ This will take you to your Azure and ask for some input. It will then create two
 
 > Make sure you create the Logic Apps in the same subscription as your API management instance.
 
-[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fmikaelsand%2Freactor-sthlm-apim%2Fmain%2FSession2%2FLab2%2FLogicApps-template.json)
+[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fmikaelsand%2Freactor-sthlm-api-pub%2Fmain%2FSession2%2FLab2%2FLogicApps-template.json)
 
 ## Create the first API
 
