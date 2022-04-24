@@ -13,8 +13,11 @@ The Oauth-endpoint is an Azure AD endpoint belong to the course leader. This end
 
 1. [Call the OAUTH endpoint](#call-the-oauth-endpoint) to get a bearer token.
 2. [Analyze the token](#analyze-the-token).
-3. [Create a new API](#create-a-new-api) and protect it using policies.
-4. Call the API with the token to verify the setup.
+3. [Create a new API](#create-a-new-api)
+4. [Configure the API](#configure-the-api) and protect it using policies.
+5. [Call the API](#call-the-api) with the token to verify the setup.
+
+Lastly you have some additional exercies.
 
 ## Call the OAUTH endpoint
 
@@ -36,6 +39,7 @@ You need to make sure the token is correct and usable.
 - Go back to Postman and copy the `access_token` value. Make sure you get the whole token and exclude the "-signs.
 - Paste the token into the upper textbox in the site. The site will decode the token for you, making it easier to read.
 - The decoded token should look like this:
+
 ```JSON
 {
   "typ": "JWT",
@@ -77,4 +81,87 @@ You will create the new API by using the built in Import OpenAPI functionality i
 - In the portal, find the APIs listing in the left menu.
 - Start adding a new API by clicking `+ Add API` at the top of the APIs list.
 - In the right pane, look for `Create from defintion` and click `OpenAPI`.
-- Click 
+- In the OpenAPI specification box, paste this URI: `https://raw.githubusercontent.com/mikaelsand/reactor-sthlm-api-pub/main/Session2/Lab3/Oauth%20Demo.openapi%2Bjson.json`
+- Leave the other as is and click Create. This will create a new API called `OAuth Demo` with one operation called `Read employee`.
+
+## Configure the API
+
+The new API is empty. It contans definitions but it does not do anything. You will now configure the API to protect itself using OAuth and return a standard message if the authentication is successful.
+
+### Configure the operation
+
+- Click the GET Read Employee Operation.
+- In the middle under Inbound processing find and click the `</>` symbol. This will open up the policy editor.
+- Replace everything in the editor with the content of [this policy file](read-employee-policy.xml).
+- The end result looks like this:
+
+```XML
+<policies>
+    <inbound>
+        <base />
+        <validate-jwt header-name="Authorization" failed-validation-httpcode="401" failed-validation-error-message="Token invalid or did not contain required role" require-expiration-time="true" require-scheme="Bearer" require-signed-tokens="true" clock-skew="60" output-token-variable-name="jwt">
+            <openid-config url="https://login.microsoftonline.com/26ef3687-262a-44fa-95f4-208111b732e9/v2.0/.well-known/openid-configuration" />
+            <audiences>
+                <audience>cc565aa4-a1e5-4c05-b1cf-df19ca4c95be</audience>
+            </audiences>
+            <issuers>
+                <issuer>https://login.microsoftonline.com/26ef3687-262a-44fa-95f4-208111b732e9/v2.0</issuer>
+            </issuers>
+            <required-claims>
+                <claim name="roles" match="any">
+                    <value>Employees.Read</value>
+                </claim>
+            </required-claims>
+        </validate-jwt>
+        <return-response>
+            <set-status code="200" reason="OK" />
+            <set-header name="content-type" exists-action="override">
+                <value>application/json</value>
+            </set-header>
+            <set-body>{"Message":"If you can read this, you have successfully authorized."}</set-body>
+        </return-response>
+    </inbound>
+    <backend>
+        <base />
+    </backend>
+    <outbound>
+        <base />
+    </outbound>
+    <on-error>
+        <base />
+    </on-error>
+</policies>
+```
+
+The operation will now check the token for:
+
+- Is it valid? The `open-id config` tag.
+- Is it meant for me? The `audiences` tag
+- Was it issued by the correct authority? The `issuer` tag.
+- Is the caller allowed to read employee data? The `required-claims` tag.
+
+If anything is wrong a standard message and code 401 will be returned. If everything is ok a standard message and 200 OK is returned.
+
+> This API does not call any backend, it contructs the response itself.
+
+Do not forget to save your policy.
+
+## Call the API
+
+If you imported the Postman collection there is a call created for you. It is called Get Employee and is located under the Get Token request.
+
+- Make sure you have a fresh token by using the Get Token request. If this is successful, the token will be updated and can be used in the Get Employee request.
+- Execute the Get Employee request. If everything is working, you should get back a 200 OK and this message.
+
+```JSON
+{
+    "Message": "If you can read this, you have successfully authorized."
+}
+```
+
+## Additional exercises
+
+- Update the policy to use another claim and role. See what happens.
+- Create a new POST operation and protect that using the claim `Employee.Write`. The token contains this claim so it will work.
+- Create a new PUT operation and protect it using the clima `Employee.Update`. The token does not contain this claim.
+- What could you do to improve the policy code? There is a lot of repeating code. Can some things be put into named values?
