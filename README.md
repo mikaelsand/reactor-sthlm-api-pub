@@ -7,7 +7,10 @@ Here you will find labs and related information.
 
 ### Lab 1
 
-Not done yet
+In this lab you will call the SL realtime APIs to get information about public transport.
+It show how to manupulate the call using policies and protect the backend API-key.
+
+You can find the lab [here](Session2/Lab1/instructions.md). 
 
 ### Lab 2
 
