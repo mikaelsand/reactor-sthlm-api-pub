@@ -1,5 +1,6 @@
 {
 	"info": {
+		"_postman_id": "11bab6ae-2468-432a-a980-e29a787cc514",
 		"name": "APIm OAuth Demo",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -91,12 +92,12 @@
 						"header": [
 							{
 								"key": "Ocp-Apim-Subscription-Key",
-								"value": "d56f142e599b4cda8478d61256f383fa",
+								"value": "ENTER-YOUR-KEY-HERE",
 								"type": "text"
 							}
 						],
 						"url": {
-							"raw": "https://{{YourAPImInstanceName}}.azure-api.net/global/IT/OAUTH-clone/employee",
+							"raw": "https://{{YourAPImInstanceName}}.azure-api.net/employee",
 							"protocol": "https",
 							"host": [
 								"{{YourAPImInstanceName}}",
@@ -104,9 +105,6 @@
 								"net"
 							],
 							"path": [
-								"global",
-								"IT",
-								"OAUTH-clone",
 								"employee"
 							]
 						}
@@ -139,7 +137,7 @@
 	"variable": [
 		{
 			"key": "YourAPImInstanceName",
-			"value": "",
+			"value": "ENTER-YOUR-VALUE",
 			"type": "string"
 		},
 		{

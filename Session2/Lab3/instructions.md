@@ -21,14 +21,15 @@ Lastly you have some additional exercies.
 
 ## Call the OAUTH endpoint
 
-First you need to authenticate to get a token. This token can then be used in all subsequent calls. If you are using [Postman](https://www.postman.com/downloads/), or [Thunder Client](https://marketplace.visualstudio.com/items?itemName=rangav.vscode-thunder-client), you can use [this collection](Session%202.postman_collection.json).
+First you need to authenticate to get a token. This token can then be used in all subsequent calls. If you are using [Postman](https://www.postman.com/downloads/), or [Thunder Client](https://marketplace.visualstudio.com/items?itemName=rangav.vscode-thunder-client), you can use [this collection]([Session%202.postman_collection.json](https://raw.githubusercontent.com/mikaelsand/reactor-sthlm-api-pub/main/Session2/Lab3/OAuth.postman_collection.json)).
 
 If not, you are on your own.
 
 - Import the collection. When you are done, you should have a new collection called APIm OAuth Demo.
 - You need to update a collection variable. Find the collection variables and enter the name of your APIm instance under `YourAPImInstanceName`. Make sure it is in the current value.
 - The other settings are the identifier (userid) and client secret (password) for getting a token.
-- When you have updated the setting, make sure to save. Then click Send
+- When you have updated the setting, make sure to save.
+- Open the `Get Token` request and click Send.
 - If you get back a 200 OK, you are set. Postman will update a variable to contain the token, and use it in later calls.
 
 ## Analyze the token
@@ -76,7 +77,9 @@ These are the parts we will be using to authorize the call.
 
 ## Create a new API
 
-You will create the new API by using the built in Import OpenAPI functionality in APIm. The OpenAPI definition is located [here](Oauth%20Demo.openapi+json.json). It will create a new API with one single operation.
+You will create the new API by using the built in Import OpenAPI functionality in APIm. It will create a new API with one single operation.
+
+If you want to know more about open API you can find it [here](Oauth%20Demo.openapi+json.json).
 
 - In the portal, find the APIs listing in the left menu.
 - Start adding a new API by clicking `+ Add API` at the top of the APIs list.
@@ -150,8 +153,11 @@ Do not forget to save your policy.
 
 If you imported the Postman collection there is a call created for you. It is called Get Employee and is located under the Get Token request.
 
-- Make sure you have a fresh token by using the Get Token request. If this is successful, the token will be updated and can be used in the Get Employee request.
-- Execute the Get Employee request. If everything is working, you should get back a 200 OK and this message.
+> You need to update the API-key for the request before sending the call. You can your your admin key. If you need help finding your admin-key, you can find the instructions [here](howtofindtheadminkey.md).
+
+- Update the request header `Ocp-Apim-Subscription-Key` to contain your admin key.
+- Make sure you have a fresh token by using the `Get Token` request first. If this is successful, the token will be updated and can be used in the `Get Employee` request.
+- Execute the `Get Employee` request. If everything is working, you should get back a 200 OK and this message.
 
 ```JSON
 {
@@ -163,5 +169,5 @@ If you imported the Postman collection there is a call created for you. It is ca
 
 - Update the policy to use another claim and role. See what happens.
 - Create a new POST operation and protect that using the claim `Employee.Write`. The token contains this claim so it will work.
-- Create a new PUT operation and protect it using the clima `Employee.Update`. The token does not contain this claim.
+- Create a new PUT operation and protect it using the claim `Employee.Update`. The token does not contain this claim.
 - What could you do to improve the policy code? There is a lot of repeating code. Can some things be put into named values?

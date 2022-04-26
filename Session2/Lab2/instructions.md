@@ -121,7 +121,7 @@ Ocp-Apim-Subscription-Key: {{MyEcho2SubscriptionKey}}
 {}
 ```
 
-If you are using Postman, you can use [this collection](Session%202.postman_collection.json). Just make sure to update the Collection variables to reflect your environment.
+If you are using Postman, you can use [this collection]([Session%202.postman_collection.json](https://raw.githubusercontent.com/mikaelsand/reactor-sthlm-api-pub/main/Session2/Lab2/Session%202.postman_collection.json)). Just make sure to update the Collection variables to reflect your environment.
 
 ### Test Echo 2 for access
 
