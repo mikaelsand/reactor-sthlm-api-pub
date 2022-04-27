@@ -7,10 +7,10 @@ In the lab you will use a key to authenticate towards the backend service. This 
 ## The Steps
 
 - [Lab 1 Creating your first API](#lab-1-creating-your-first-api)
-  - [The Steps](#the-steps)
-  - [Create a new API](#create-a-new-api)
-  - [Update the policy](#update-the-policy)
-  - [Test the API](#test-the-api)
+	- [The Steps](#the-steps)
+	- [Create a new API](#create-a-new-api)
+	- [Update the policy](#update-the-policy)
+	- [Test the API](#test-the-api)
 
 ## Create a new API
 
@@ -18,7 +18,6 @@ In the lab you will use a key to authenticate towards the backend service. This 
 - Find your API management instance by typing its name in the search bar at the top of the page.
 - Click the instance to navigate to the APIm start page.
 - In the menu on the left side, find `APIs` and click it.
-- You should have one API called Echo API.
 - Create a new API by finding the `+ Add API` option at the top if the API list.
 - Choose the first option `Manually define an HTTP API`. This dialog appears:
 
