@@ -1,6 +1,6 @@
 # Information
 
-Welcome to Azure API management at Reactor in Stockholm.
+Welcome to Introduction to Azure API management.
 Here you will find labs and related information.
 
 ## Session 1
